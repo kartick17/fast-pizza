@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 function NotFound() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <div>
@@ -9,7 +9,7 @@ function NotFound() {
       <p>%MESSAGE%</p>
       <button onClick={() => navigate(-1)}>&larr; Go back</button>
     </div>
-  );
+  )
 }
 
-export default NotFound;
+export default NotFound
