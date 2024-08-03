@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { createOrder } from '../../services/apiRestaurant';
+import { useState } from 'react'
+import { createOrder } from '../../services/apiRestaurant'
 import {
   Form,
   redirect,
   useActionData,
   useFormAction,
   useNavigation,
-} from 'react-router-dom';
-import Button from '../../ui/Button';
+} from 'react-router-dom'
+import Button from '../../ui/Button'
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
     str,
-  );
+  )
 
 const fakeCart = [
   {
@@ -37,16 +37,16 @@ const fakeCart = [
     unitPrice: 15,
     totalPrice: 15,
   },
-];
+]
 
 function CreateOrder() {
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === 'submitting';
+  const navigation = useNavigation()
+  const isSubmitting = navigation.state === 'submitting'
 
-  const formErrors = useActionData();
+  const formErrors = useActionData()
 
   // const [withPriority, setWithPriority] = useState(false);
-  const cart = fakeCart;
+  const cart = fakeCart
 
   return (
     <div>
@@ -87,33 +87,33 @@ function CreateOrder() {
 
         <div>
           <input type='hidden' name='cart' value={JSON.stringify(cart)} />
-          <Button disabled={isSubmitting}>
+          <Button disabled={isSubmitting} type='primary'>
             {isSubmitting ? 'Placing order...' : 'Order now'}
           </Button>
         </div>
       </Form>
     </div>
-  );
+  )
 }
 
 export async function action({ request }) {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
+  const formData = await request.formData()
+  const data = Object.fromEntries(formData)
 
   const order = {
     ...data,
     cart: JSON.parse(data.cart),
     priority: data.priority === 'on',
-  };
+  }
 
-  const error = {};
-  if (!isValidPhone(order.phone)) error.phone = 'Enter a valid phone number.';
+  const error = {}
+  if (!isValidPhone(order.phone)) error.phone = 'Enter a valid phone number.'
 
-  if (Object.keys(error).length > 0) return error;
+  if (Object.keys(error).length > 0) return error
 
   // If there don't have any error then create order
-  const newOrder = await createOrder(order);
-  return redirect(`/order/${newOrder.id}`);
+  const newOrder = await createOrder(order)
+  return redirect(`/order/${newOrder.id}`)
 }
 
-export default CreateOrder;
+export default CreateOrder

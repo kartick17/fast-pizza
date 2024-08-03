@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import Button from '../../ui/Button';
+import { useState } from 'react'
+import Button from '../../ui/Button'
 
 function CreateUser() {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('')
 
   function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
   }
 
   return (
@@ -24,11 +24,11 @@ function CreateUser() {
 
       {username !== '' && (
         <div>
-          <Button>Start ordering</Button>
+          <Button type='primary'>Start ordering</Button>
         </div>
       )}
     </form>
-  );
+  )
 }
 
-export default CreateUser;
+export default CreateUser
